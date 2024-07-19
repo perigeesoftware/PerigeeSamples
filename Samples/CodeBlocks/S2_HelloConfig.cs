@@ -1,13 +1,24 @@
 ﻿using Microsoft.Extensions.Logging;
 using Perigee;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Samples.CodeBlocks
 {
+
+    /*
+    ---- Hello Config ----
+    - https://docs.perigee.software/getting-started/hello-configuration
+
+    Hello Config shows how to read and deserialize the appsettings, as well as configuration linking for controlled thread starts and stops
+
+
+    --== Learning Objective #1: Runtime hot-reload ==--
+    * Run the application in debug mode
+    * Try opening the debug folder's deployed appsettings.json (Samples\bin\Debug\net8.0\appsettings.json)
+    * switch the "Enabled" flag to `true` or `false` and watch your application start or stop the TestMethod
+
+    --> To run this sample:
+    S2_HelloConfig.run();
+    */
     public static class S2_HelloConfig
     {
         public static void run()
