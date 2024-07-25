@@ -18,9 +18,7 @@ For a visual demo of this process, see https://docs.perigee.software/
 
 
 //Running the default sample to start, feel free to change out to other samples and read through their descriptions!
-//S1_HelloWorld.run();
-
-S5_HelloCredential.run();
+S1_HelloWorld.run();
 
 //Switch to a new sample or demo to run it instead, ex:
 // S2_HelloConfig.run();
