@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using Perigee;
 
 namespace Samples.CodeBlocks;
@@ -53,7 +54,7 @@ public static class T2_Extensions
             do
             {
                 //An example of repeating something every second, and exiting the thread when the token is cancelled.
-
+                l.LogInformation("CustomXYZFunction is running!");
 
                 //Doing a long process that can be stopped safely? Pay attention to the cancellation token, and kindly exit when a graceful shutdown is requested.
                 if (ct.IsCancellationRequested)
@@ -64,6 +65,9 @@ public static class T2_Extensions
 
             }
             while (PerigeeApplication.delayOrCancel(1000, ct));
+
+            //After the loop exits, from the cancellation token being flagged
+            l.LogInformation("CustomXYZFunction has requested shutdown");
 
         }, tr.CTS, tr.GetLogger<Program>(), started: true);
 

@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="perigee" Version="24.7.1.2" />
+    <PackageReference Include="perigee" Version="24.8.1.1" />
   </ItemGroup>
 
   <ItemGroup>
