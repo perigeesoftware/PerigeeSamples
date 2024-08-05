@@ -96,8 +96,8 @@ namespace Samples.CodeBlocks
                     
                     //You can easily calculate statistics over the dataset as well. Let's look at fill rates
                     var statistics = dynamicTable.GetStatistics();
-                    foreach (var kvp in statistics.ColumnNames) 
-                        l.LogInformation("Fill: {rate:N2}%", statistics.FillRate[kvp.Key] * 100.0m);
+                    foreach (var kvp in statistics.ColumnNames.OrderBy(f => f.Key)) 
+                        l.LogInformation("Fill rate of {column}: {rate:N2}%", statistics.ColumnNames[kvp.Key], statistics.FillRate[kvp.Key] * 100.0m);
                     
                     
                     while (PerigeeApplication.delayOrCancel(1000, ct)) { }

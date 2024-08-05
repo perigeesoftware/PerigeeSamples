@@ -28,7 +28,9 @@ namespace Samples.CodeBlocks
 
             PerigeeApplication.ApplicationNoInit("Hello World!", (c) =>
             {
-                c.AddRecurring("Say Hello", (ct, l) => { l.LogInformation("I'm saying hello every 5 seconds! Press Ctrl-C to start a graceful shutdown"); }, 5000);
+                c.AddRecurring("Say Hello", (ct, l) => { 
+                    l.LogInformation("I'm saying hello every 5 seconds! Press Ctrl-C to start a graceful shutdown"); 
+                }, 5000);
             });
 
         }

@@ -82,7 +82,7 @@ namespace Samples.CodeBlocks
                     if (spTitleLookup.Contains("Frozen")) {
 
                         //Internally items are stored in hashes, meaning retrieval is very fast
-                        Movie item = spTitleLookup["T-Bone"];
+                        Movie item = spTitleLookup["Frozen"];
                         l.LogInformation("Movie: {@movie}", item);
                     }
                     
