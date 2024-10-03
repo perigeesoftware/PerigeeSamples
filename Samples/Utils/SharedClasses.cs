@@ -11,6 +11,8 @@ public class BitPerson
     public BitPersonType PersonType { get; set; }
     public List<BitPerson> RelatedPeople { get; set; } = new List<BitPerson> { };
 
+    public string NewField { get; set; } = "";
+
     [Bit2Ignore]
     public string ignoredExample { get; set; } = "";
 
@@ -26,6 +28,14 @@ public class BitPerson
     {
         //Called after deserialization. Do whatever you need here!
     }
+}
+
+public class PartialBitPerson
+{
+    public string Name { get; set; }
+
+    public List<PartialBitPerson> RelatedPeople { get; set; } = new List<PartialBitPerson> { };
+
 }
 
 public enum BitPersonType
