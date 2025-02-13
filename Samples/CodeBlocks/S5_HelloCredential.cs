@@ -64,11 +64,14 @@ namespace Samples.CodeBlocks
                 //Add a method to call PMecho with credentials
                 c.AddRecurring("Call Echo", (ct, l) => {
 
-                    //Declare a client, assign the timeout to 10 seconds
-                    using var client = new RestClient(new RestClientOptions("https://postman-echo.com") { MaxTimeout = 10000 });
+                    //Declare a client, assign the timeout to 10 seconds and use a CredentialAuthenticator -> pointed to the one we registered above
+                    var rco = new RestClientOptions("https://postman-echo.com") { 
+                        Timeout = TimeSpan.FromSeconds(10), 
+                        Authenticator = new CredentialAuthenticator("RestSharpToken") 
+                    };
+                    
+                    using var client = new RestClient(rco);
 
-                    //Use a CredentialAuthenticator -> pointed to the one we registered above
-                    client.UseAuthenticator(new CredentialAuthenticator("RestSharpToken"));
 
                     //Create a request
                     var req = new RestRequest("/basic-auth", Method.Get);
