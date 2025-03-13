@@ -4,33 +4,70 @@ using Perigee;
 namespace Samples.CodeBlocks
 {
     /*
-    ---- Hello world ----
+    ---- Hello World ----
     - https://docs.perigee.software/
 
-    Hello world demonstrates the basics of running a perigee application. 
-     It configures the perigee start, and begins a recurring thread to log hello every 5 seconds.
+    This sample demonstrates the basics of running a Perigee application.
+    It pulls in configuration settings, sets up an ecosystem for graceful shutdown,
+    parallel task execution, and provides a fully programmatic interface into the running code.
+
+    It configures the Perigee start, and begins two tasks:
+        - A recurring task ("Hello Perigee") that logs an informational message every configurable interval.
+        - A CRON-scheduled background processor that runs every 5 seconds and must complete its task before shutdown.
 
     --== Learning Objective #1: Graceful Shutdown ==--
-    * Start the application, then press CTRL-C on the keyboard. Watch as perigee shuts down the process while respecting the currently running threads
+    * Start the application, then press CTRL-C on the keyboard.
+        Watch as Perigee shuts down gracefully while ensuring that any running tasks complete their work.
 
-    --== Learning Objective #2: Change the recurring time ==--
-    * Go the S1_HelloWorld.cs file
-    * At the end of the .AddRecurring line, change the value from 5000 to 10000 (milliseconds) and re-run. Notice the recurring time is now 10 seconds?
-    
+    --== Learning Objective #2: Dynamic Configuration ==--
+    * Note how the recurring task interval is dynamically pulled from configuration ("DelaySeconds").
+    * Modify the "DelaySeconds" setting and re-run. Notice the recurring interval updates accordingly.
 
     --> To run this sample:
     S1_HelloWorld.run();
-    */
+*/
+
     public static class S1_HelloWorld
     {
         public static void run()
         {
 
-            PerigeeApplication.ApplicationNoInit("Hello World!", (c) =>
+
+            PerigeeApplication.App("Hello World!", (config) =>
             {
-                c.AddRecurring("Say Hello", (ct, l) => { 
-                    l.LogInformation("I'm saying hello every 5 seconds! Press Ctrl-C to start a graceful shutdown"); 
-                }, 5000);
+                // 1) Schedules a recurring task that logs an informational message every configurable interval.
+                config.AddRecurring("Hello Perigee", (cancellationToken, logger) =>
+                {
+                    // Log a message to indicate the application is active. The message also instructs the user to press CTRL-C for a graceful shutdown.
+
+                    // "DelaySeconds" is pulled from configuration to dynamically set the interval.
+                    logger.LogInformation("I'm saying hello world every {n} seconds! Press Ctrl-C to initiate a graceful shutdown.", config.GetAppSetting<int>("DelaySeconds"));
+
+                }, TimeSpan.FromSeconds(config.GetAppSetting<int>("DelaySeconds")));
+
+
+
+                // 2) Schedules the background processor to run every 5 seconds using CRON syntax.
+                //      This asynchronous task MUST complete its work before shutting down when CTRL-C is pressed.
+                config.AddCRONAsync("Background Processor", "*/5 * * * * *", async (cancellationToken, logger) =>
+                {
+                    logger.LogInformation("I'm starting a very important background task...");
+
+                    // Register a callback to log a warning if shutdown is requested during the critical operation.
+                    var registration = cancellationToken.Register(() =>
+                        logger.LogWarning("I know you requested shutdown, but I'm currently running. Please wait a moment and I'll exit.")
+                    );
+
+                    // Simulate critical work that takes 15 seconds.
+                    await Task.Delay(TimeSpan.FromSeconds(15));
+
+                    // Unregister the shutdown warning callback and log that the background task is complete.
+                    registration.Unregister();
+                    logger.LogInformation("Background task done. We may exit if requested.");
+                });
+
+
+
             });
 
         }
