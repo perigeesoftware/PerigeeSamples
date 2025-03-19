@@ -42,7 +42,7 @@ namespace Samples.CodeBlocks
     {
         public static void run()
         {
-            PerigeeApplication.ApplicationNoInit("Notifier", (c) => {
+            PerigeeApplication.App("Notifier", (c) => {
 
                 c.AddDirectoryNotifier("Notify Folder", @"C:\Watch", @".*\.json$|.*\.csv$", SearchOption.TopDirectoryOnly,
                     (ct, l, path) => {

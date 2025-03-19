@@ -49,7 +49,7 @@ namespace Samples.CodeBlocks
     {
         public static void run()
         {
-            PerigeeApplication.ApplicationNoInit("Dyanmic Tables", (c) =>
+            PerigeeApplication.App("Dyanmic Tables", (c) =>
             {
                 c.Add("Tables Example", (ct, l) =>
                 {

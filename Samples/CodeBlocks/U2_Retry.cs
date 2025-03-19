@@ -42,7 +42,7 @@ namespace Samples.CodeBlocks
     {
         public static void run()
         {
-            PerigeeApplication.ApplicationNoInit("Retry", (c) => {
+            PerigeeApplication.App("Retry", (c) => {
 
                 c.AddRecurring("Recurring", (ct, l) => {
 

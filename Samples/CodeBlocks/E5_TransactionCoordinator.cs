@@ -80,7 +80,7 @@ namespace Samples.CodeBlocks
             //To call replay (to re-process a transaction), use postman or curl:
             //curl https://localhost:7216/replay?number=66
 
-            PerigeeApplication.ApplicationNoInit("Coordinator", (c) =>
+            PerigeeApplication.App("Coordinator", (c) =>
             {
                 //Local source, which in a real-world scenario, you'd likely be using a database source
                 var localSource = new ITransactionSource_Memory("ITSourceMemory.json", c.GetCancellationToken());

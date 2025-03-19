@@ -42,7 +42,7 @@ namespace Samples.CodeBlocks
     {
         public static void run()
         {
-            PerigeeApplication.ApplicationNoInit("MTP", (c) => {
+            PerigeeApplication.App("MTP", (c) => {
 
                 c.Add("Multi-Threaded Processor", (ct, l) => {
 

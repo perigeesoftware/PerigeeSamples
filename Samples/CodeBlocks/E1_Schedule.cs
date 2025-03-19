@@ -38,7 +38,7 @@ public static class E1_Schedule
 {
     public static void run()
     {
-        PerigeeApplication.ApplicationNoInit("Event Scheduler", (c) =>
+        PerigeeApplication.App("Event Scheduler", (c) =>
         {
    
             //Declare a new memory source, remember to use a single instance of memory/file based sources or locking can occur

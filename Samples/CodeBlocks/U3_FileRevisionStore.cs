@@ -49,7 +49,7 @@ namespace Samples.CodeBlocks
     {
         public static void run()
         {
-            PerigeeApplication.ApplicationNoInit("Revision Store", (c) =>
+            PerigeeApplication.App("Revision Store", (c) =>
             {
                 c.Add("Revision Store", (ct, l) =>
                 {

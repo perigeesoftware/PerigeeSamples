@@ -44,7 +44,7 @@ namespace Samples.CodeBlocks
     {
         public static void run()
         {
-            PerigeeApplication.ApplicationNoInit("Debounce Example", (c) =>
+            PerigeeApplication.App("Debounce Example", (c) =>
             {
                 c.Add("Debounce Demo", (ct, l) =>
                 {

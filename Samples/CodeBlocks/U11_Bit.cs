@@ -50,7 +50,7 @@ namespace Samples.CodeBlocks
 
         public static void run()
         {
-            PerigeeApplication.ApplicationNoInit("Bit Serialization Example", (c) =>
+            PerigeeApplication.App("Bit Serialization Example", (c) =>
             {
                 c.Add("Serialization Demo", (ct, l) =>
                 {

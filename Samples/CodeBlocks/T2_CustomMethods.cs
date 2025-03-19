@@ -35,7 +35,7 @@ public class T2_CustomMethods
 {
     public static void run()
     {
-        PerigeeApplication.ApplicationNoInit("Custom Method", (c) =>
+        PerigeeApplication.App("Custom Method", (c) =>
         {
             //And it's available to use!
             c.AddCustomXYZFunction();

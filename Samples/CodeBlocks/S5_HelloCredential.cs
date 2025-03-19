@@ -41,7 +41,7 @@ namespace Samples.CodeBlocks
     {
         public static void run()
         {
-            PerigeeApplication.ApplicationNoInit("HTTP", (c) => {
+            PerigeeApplication.App("HTTP", (c) => {
 
                 //Register a refresh with the name "RestSharpToken".
                 //  We always register credentials at the beginning a new PerigeeApplication to ensure they are ready to be used by threads

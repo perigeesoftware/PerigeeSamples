@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Perigee;
+using Perigee.Extensions;
 using Perigee.FileFormats.CSV;
 using Perigee.Transform;
 using System;
@@ -46,7 +47,7 @@ namespace Samples.CodeBlocks
 
         public static void run()
         {
-            PerigeeApplication.ApplicationNoInit("Files", (c) =>
+            PerigeeApplication.App("Files", (c) =>
             {
                 c.Add("Read Files", (ct, l) => { 
 
@@ -57,7 +58,7 @@ namespace Samples.CodeBlocks
                     l.LogInformation(File.ReadAllText(_Path_PropertiesCSV));
 
                     //But ours is perfectly clean!
-                    l.LogInformation(new CSVWriter(PropertiesFile).Write());
+                    l.LogInformation(PropertiesFile.ToCSV());
 
                     //Let's clean and convert it to json. In one line...
                     // CleanFile takes a table, or bytes, and cleans + converts the data
@@ -76,8 +77,6 @@ namespace Samples.CodeBlocks
 
 
                     //Easy peasy file reading is breezy!
-
-
                     while (PerigeeApplication.delayOrCancel(1000, ct)) { }
                 });
             });

@@ -49,7 +49,7 @@ public static class E2_SyncAgent
 {
     public static void run()
     {
-        PerigeeApplication.ApplicationNoInit("Unparalleled Task Coordination", (c) =>
+        PerigeeApplication.App("Unparalleled Task Coordination", (c) =>
         {
             //Clear on start, for demo purposes only
             if (File.Exists("MemAgent.json")) File.Delete("MemAgent.json");

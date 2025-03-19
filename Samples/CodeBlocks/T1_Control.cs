@@ -46,7 +46,7 @@ namespace Samples.CodeBlocks
         public static void run()
         {
 
-            PerigeeApplication.ApplicationNoInit("FirstApp", (c) =>
+            PerigeeApplication.App("FirstApp", (c) =>
             {
 
                 //Cron method, running every 15 seconds

@@ -44,7 +44,7 @@ namespace Samples.CodeBlocks
     {
         public static void run()
         {
-            PerigeeApplication.ApplicationNoInit("Parallel", (c) =>
+            PerigeeApplication.App("Parallel", (c) =>
             {
 
                 c.Add("Parallel Process", (ct, l) =>

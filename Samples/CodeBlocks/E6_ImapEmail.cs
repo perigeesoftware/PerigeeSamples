@@ -45,7 +45,7 @@ namespace Samples.CodeBlocks
     {
         public static void run()
         {
-            PerigeeApplication.ApplicationNoInit("MailDemo", (c) => {
+            PerigeeApplication.App("MailDemo", (c) => {
 
                 //Add an IMAP watcher to reply to messages from an inbox
                 //You can also use the SASL authentication provided by MailKit. 

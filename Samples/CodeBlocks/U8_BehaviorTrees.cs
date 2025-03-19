@@ -48,7 +48,7 @@ namespace Samples.CodeBlocks
         public static void run()
         {
             
-            PerigeeApplication.ApplicationNoInit("Behavior Trees", (c) => {
+            PerigeeApplication.App("Behavior Trees", (c) => {
                 c.Add("BT", (ct, l) => {
 
                     // Behavior trees are fantastic for everything from robotics to simulating real world behaviors.

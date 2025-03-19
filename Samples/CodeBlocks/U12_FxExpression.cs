@@ -40,7 +40,7 @@ namespace Samples.CodeBlocks
         
         public static void run()
         {
-            PerigeeApplication.ApplicationNoInit("Fx Expressions", (c) =>
+            PerigeeApplication.App("Fx Expressions", (c) =>
             {
                 c.Add("Demo", (ct, l) =>
                 {

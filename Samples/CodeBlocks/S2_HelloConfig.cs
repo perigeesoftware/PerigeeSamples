@@ -10,7 +10,6 @@ namespace Samples.CodeBlocks
 
     Hello Config shows how to read and deserialize the appsettings, as well as configuration linking for controlled thread starts and stops
 
-
     --== Learning Objective #1: Runtime hot-reload ==--
     * Run the application in debug mode
     * Try opening the debug folder's deployed appsettings.json (Samples\bin\Debug\net8.0\appsettings.json)
@@ -24,7 +23,7 @@ namespace Samples.CodeBlocks
         public static void run()
         {
 
-            PerigeeApplication.ApplicationNoInit("HelloConfig", (taskConfig) => {
+            PerigeeApplication.App("HelloConfig", (taskConfig) => {
 
                 taskConfig.AddRecurring("TestMethod", (ct, log) => {
 

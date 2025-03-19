@@ -50,7 +50,7 @@ namespace Samples.CodeBlocks
     {
         public static void run()
         {
-            PerigeeApplication.ApplicationNoInit("Limiter", (c) =>
+            PerigeeApplication.App("Limiter", (c) =>
             {
 
                 c.AddRecurring("Limiter", (ct, l) => {

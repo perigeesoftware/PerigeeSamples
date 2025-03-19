@@ -36,12 +36,13 @@ namespace Samples.CodeBlocks
     {
         public static void run()
         {
-            PerigeeApplication.ApplicationNoInit("Logging And Scopes", (c) =>
+            PerigeeApplication.App("Logging And Scopes", (c) =>
             {
                 //Get a direct log from c (ThreadRegistry)
                 c.AddRecurring("DirectLog", (ct, l) => {
                     
                     c.GetLogger<Program>().LogInformation("I am logging directly from the thread registry method");
+
                 }, 10000);
 
                 c.AddRecurring("RecurringLogger", (ct, l) => {

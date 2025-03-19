@@ -45,7 +45,7 @@ namespace Samples.CodeBlocks
         public static void run()
         {
 
-            PerigeeApplication.ApplicationNoInit("Nested Sets", (c) =>
+            PerigeeApplication.App("Nested Sets", (c) =>
             {
                 /*
                     Nested sets can be used anywhere a hierarchy is defined. This can be document structures, 

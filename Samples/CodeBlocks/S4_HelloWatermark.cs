@@ -43,7 +43,7 @@ namespace Samples.CodeBlocks
     {
         public static void run()
         {
-            PerigeeApplication.ApplicationNoInit("Hello Watermark", (c) =>
+            PerigeeApplication.App("Hello Watermark", (c) =>
             {
                 //Register a watermark - ALWAYS do this before requesting one, we recommend putting registers at the top of your method.
                 Watermarking.Register("IntegrationOffset", () => Watermark.FromDateTimeOffset(DateTimeOffset.UtcNow), (nVal) =>

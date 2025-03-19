@@ -37,7 +37,7 @@ public static class E3_DirectoryWatcher
 {
     public static void run()
     {
-        PerigeeApplication.ApplicationNoInit("Watcher Demo", (c) =>
+        PerigeeApplication.App("Watcher Demo", (c) =>
         {
 
             c.AddDirectoryWatch("CSV", "C:\\Watch", "*.csv", SearchOption.AllDirectories, (ct, l, path) => {
