@@ -1,7 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Perigee;
+using Perigee.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +32,12 @@ namespace Samples.CodeBlocks
     * Add additional recurring loggers with different intervals and messages to see how they coexist in the log output
     * Modify the log interval to see how it affects the frequency of log messages
 
+    --== Learning Objective #4: Metrics ==--
+    * Let's understand how the metrics system works, and play with logging out the results
+    * Try changing the average time to say, Minimum, Maximum, or even Nth Percentile
+    * Learn more about the Metrics system at: https://docs.perigee.software/core-modules/utility-classes/metrics
+    
+
     --> To run this sample:
     S3_HelloLogs.run();
     */
@@ -54,6 +63,40 @@ namespace Samples.CodeBlocks
                     l.LogInformation("See the overriden thread name?");
 
                 });
+
+                c.AddRecurring("Metrics", (ct, l) => {
+
+                    //Let's look at metrics and log them out.
+                    //  First, let's get this running thread and assign a new metric to it
+                    var thread = c.GetThread("Metrics");
+
+                    //We can easily keep track of the current run count of this thread by calling increment and giving it a name
+                    thread.IncrementMetric("RunCount");
+
+                    //Let's log out the current run count. Notice this uses Int type? Increment metrics create integer types
+                    l.LogInformation("{name} has run {n} times", thread.Name, thread.TryGetMetricInt("RunCount")?.Sum() ?? 0);
+
+                    //Let's look at adding a decimal type. Let's simulate a random time to use for the process time.
+                    //  We name it "ProcessTime"
+                    //  Assign a random number (simulating a process time)
+                    //  Then supply "1" as the rounding precision.
+                    thread.AddMetricDecimal("ProcessTime", (decimal)Random.Shared.NextDouble() * 3, 1);
+
+                    //Let's log out the average:
+                    l.LogInformation("{name} average run time: {n:n2}", thread.Name, thread.TryGetMetricDecimal("ProcessTime")?.Average() ?? 0);
+
+                    //Get the full json of the Metrics thread, all metrics from all threads, and then a jObject we can format indented. 
+                    // Plenty of options to retrieve metrics!
+                    // These are useful for logging, dashboards, shipping to an API, etc.
+                    var ProcessTimeJson = thread.TryGetMetricDecimal("ProcessTime").AsJson(false);
+                    var AllMetrics = c.GetMetricsJson(false);
+                    var ThreadMetrics = thread.GetMetricsAsJObject(false).ToString(Formatting.Indented);
+
+
+
+                }, TimeSpan.FromSeconds(2));
+
+
             });
         }
     }

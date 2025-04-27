@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Perigee;
+using Perigee.Helpers;
 
 namespace Samples.CodeBlocks
 {
@@ -22,6 +23,12 @@ namespace Samples.CodeBlocks
     --== Learning Objective #2: Dynamic Configuration ==--
     * Note how the recurring task interval is dynamically pulled from configuration ("DelaySeconds").
     * Modify the "DelaySeconds" setting and re-run. Notice the recurring interval updates accordingly.
+    
+
+    --== Learning Objective #3: Thread Restart Control ==--
+    * Look at the restart function, understand how this can grant great control over when to restart a crashed thread.
+    * Understand how this could be used for a full reset before starting again, or monitoring for favorable conditions (like a network active, a database reachable, etc)
+    * Uncomment the `config.GetThread("Sir Crash A Lot").QueueStop(true);` line below, play with the true|false and understand how it skips the restart function
 
     --> To run this sample:
     S1_HelloWorld.run();
@@ -31,7 +38,7 @@ namespace Samples.CodeBlocks
     {
         public static void run()
         {
-
+            bool Throw = true;
 
             PerigeeApplication.App("Hello World!", (config) =>
             {
@@ -67,6 +74,35 @@ namespace Samples.CodeBlocks
                 });
 
 
+                // 3) Let's schedule a task to simulate something that regularly has issues
+                config.AddRecurring("Sir Crash A Lot", (ct, l) => {
+
+                    l.LogInformation("Simulating refresh");
+                    Task.Delay(TimeSpan.FromSeconds(5)).Wait();
+
+                    //Crash!
+                    if (Throw)
+                        throw new Exception("Crash time");
+
+                    l.LogInformation("Refresh done!");
+
+                }, restartingWatch: () => {
+
+                    //Check and make sure the network is good
+                    if (!NetworkUtility.Available())
+                        return false;
+
+                    //Check a database? Execute a refresh/reset on an API? Do anything you like here!
+                    // Let's fix the throwing issue. Simulating conditions favorable to run again.
+                    Throw = false;
+
+                    //True means we can restart the downed thread
+                    return true;
+                });
+
+                //config.GetThread("Sir Crash A Lot").QueueStop(true);
+
+                
 
             });
 
